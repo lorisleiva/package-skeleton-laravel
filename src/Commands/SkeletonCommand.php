@@ -11,6 +11,6 @@ class SkeletonCommand extends Command
 
     public function handle()
     {
-        $this->info('All done');
+        $this->info('Done!');
     }
 }
