@@ -1,16 +1,16 @@
 <?php
 
-namespace Lorisleiva\Skeleton\Tests;
-
 use Lorisleiva\Skeleton\Skeleton;
 
-class ExampleTest extends TestCase
-{
-    /** @test */
-    public function it_resolves_from_the_container()
-    {
-        $skeleton = $this->app->make(Skeleton::class);
+it('resolves from the container', function () {
+    $skeleton = app(Skeleton::class);
 
-        $this->assertTrue($skeleton instanceof Skeleton);
-    }
-}
+    expect($skeleton instanceof Skeleton)->toBeTrue();
+});
+
+it('resolves as a singleton', function () {
+    $skeletonA = app(Skeleton::class);
+    $skeletonB = app(Skeleton::class);
+
+    expect($skeletonA)->toBe($skeletonB);
+});
