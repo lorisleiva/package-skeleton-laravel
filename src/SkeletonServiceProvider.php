@@ -1,52 +1,34 @@
 <?php
 
-namespace Spatie\Skeleton;
+namespace Lorisleiva\Skeleton;
 
 use Illuminate\Support\ServiceProvider;
-use Spatie\Skeleton\Commands\SkeletonCommand;
+use Lorisleiva\Skeleton\Commands\SkeletonCommand;
+use Lorisleiva\Skeleton\Skeleton;
 
 class SkeletonServiceProvider extends ServiceProvider
 {
     public function boot()
     {
         if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../config/skeleton.php' => config_path('skeleton.php'),
-            ], 'config');
-
-            $this->publishes([
-                __DIR__ . '/../resources/views' => base_path('resources/views/vendor/skeleton'),
-            ], 'views');
-
-            $migrationFileName = 'create_skeleton_table.php';
-            if (! $this->migrationFileExists($migrationFileName)) {
-                $this->publishes([
-                    __DIR__ . "/../database/migrations/{$migrationFileName}.stub" => database_path('migrations/' . date('Y_m_d_His', time()) . '_' . $migrationFileName),
-                ], 'migrations');
-            }
-
+            $this->publishConfig();
             $this->commands([
                 SkeletonCommand::class,
             ]);
         }
-
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'skeleton');
     }
 
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/skeleton.php', 'skeleton');
+
+        $this->app->singleton(Skeleton::class);
     }
 
-    public static function migrationFileExists(string $migrationFileName): bool
+    protected function publishConfig()
     {
-        $len = strlen($migrationFileName);
-        foreach (glob(database_path("migrations/*.php")) as $filename) {
-            if ((substr($filename, -$len) === $migrationFileName)) {
-                return true;
-            }
-        }
-
-        return false;
+        $this->publishes([
+            __DIR__ . '/../config/skeleton.php' => config_path('skeleton.php'),
+        ], ['config', 'skeleton-config']);
     }
 }

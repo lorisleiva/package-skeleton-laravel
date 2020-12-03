@@ -1,7 +1,8 @@
 <?php
 
-namespace Spatie\Skeleton;
+namespace Lorisleiva\Skeleton;
 
 class Skeleton
 {
+    //
 }
