@@ -4,7 +4,6 @@ namespace Lorisleiva\Skeleton;
 
 use Illuminate\Support\ServiceProvider;
 use Lorisleiva\Skeleton\Commands\SkeletonCommand;
-use Lorisleiva\Skeleton\Skeleton;
 
 class SkeletonServiceProvider extends ServiceProvider
 {
