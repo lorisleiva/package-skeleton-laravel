@@ -30,7 +30,7 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
           coverage: none
-          
+
       - name: Setup Problem Matches
         run: |
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
@@ -42,4 +42,4 @@ jobs:
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
       - name: Execute tests
-        run: vendor/bin/phpunit
+        run: vendor/bin/pest
